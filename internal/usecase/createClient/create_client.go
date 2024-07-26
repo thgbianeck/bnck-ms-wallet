@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-type CreateClientDTO struct {
+type CreateClientInputDTO struct {
 	Name  string `json:"name"`
 	Email string `json:"email"`
 }
@@ -27,7 +27,7 @@ func NewCreateClientUseCase(clientGateway gateway.ClientGateway) *CreateClientUs
 	return &CreateClientUseCase{ClientGateway: clientGateway}
 }
 
-func (uc *CreateClientUseCase) Execute(input CreateClientDTO) (*CreateClientOutputDTO, error) {
+func (uc *CreateClientUseCase) Execute(input CreateClientInputDTO) (*CreateClientOutputDTO, error) {
 	client, err := entity.NewClient(input.Name, input.Email)
 	if err != nil {
 		return nil, err

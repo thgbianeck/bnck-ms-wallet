@@ -1,6 +1,6 @@
-FROM golang:latest
+FROM golang:1.21.6
 
-WORKDIR /go/app
+WORKDIR /app/
 
 RUN apt-get update && apt-get install -y librdkafka-dev
 

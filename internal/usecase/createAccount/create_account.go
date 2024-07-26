@@ -5,8 +5,8 @@ import (
 	"github.com/thgbianeck/bnck-ms-wallet/internal/gateway"
 )
 
-type CreateAccountDTO struct {
-	ClientID string `json:"clientId"`
+type CreateAccountInputDTO struct {
+	ClientID string `json:"client_id"`
 }
 
 type CreateAccountOutputDTO struct {
@@ -22,7 +22,7 @@ func NewCreateAccountUseCase(a gateway.AccountGateway, c gateway.ClientGateway) 
 	return &CreateAccountUseCase{AccountGateway: a, ClientGateway: c}
 }
 
-func (uc *CreateAccountUseCase) Execute(input CreateAccountDTO) (*CreateAccountOutputDTO, error) {
+func (uc *CreateAccountUseCase) Execute(input CreateAccountInputDTO) (*CreateAccountOutputDTO, error) {
 	client, err := uc.ClientGateway.Get(input.ClientID)
 	if err != nil {
 		return nil, err
