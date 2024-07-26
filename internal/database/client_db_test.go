@@ -1,10 +1,9 @@
-package database_test
+package database
 
 import (
 	"database/sql"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/stretchr/testify/suite"
-	"github.com/thgbianeck/bnck-ms-wallet/internal/database"
 	"github.com/thgbianeck/bnck-ms-wallet/internal/entity"
 	"testing"
 )
@@ -12,7 +11,7 @@ import (
 type ClientDBTestSuit struct {
 	suite.Suite
 	db       *sql.DB
-	clientDB *database.ClientDB
+	clientDB *ClientDB
 }
 
 func (s *ClientDBTestSuit) SetupSuite() {
@@ -20,7 +19,7 @@ func (s *ClientDBTestSuit) SetupSuite() {
 	s.Nil(err)
 	s.db = db
 	db.Exec("CREATE TABLE clients (id varchar(255), name varchar(255), email varchar(255), created_at date, updated_at date)")
-	s.clientDB = database.NewClientDB(db)
+	s.clientDB = NewClientDB(db)
 }
 
 func (s *ClientDBTestSuit) TearDownSuite() {

@@ -1,9 +1,8 @@
-package database_test
+package database
 
 import (
 	"database/sql"
 	"github.com/stretchr/testify/suite"
-	"github.com/thgbianeck/bnck-ms-wallet/internal/database"
 	"github.com/thgbianeck/bnck-ms-wallet/internal/entity"
 	"testing"
 )
@@ -15,7 +14,7 @@ type TransactionDBTestSuite struct {
 	client2       *entity.Client
 	accountFrom   *entity.Account
 	accountTo     *entity.Account
-	transactionDB *database.TransactionDB
+	transactionDB *TransactionDB
 }
 
 func (s *TransactionDBTestSuite) SetupSuite() {
@@ -37,7 +36,7 @@ func (s *TransactionDBTestSuite) SetupSuite() {
 	accountTo := entity.NewAccount(s.client2)
 	accountTo.Balance = 1000
 	s.accountTo = accountTo
-	s.transactionDB = database.NewTransactionDB(db)
+	s.transactionDB = NewTransactionDB(db)
 }
 
 func (s *TransactionDBTestSuite) TearDownSuite() {

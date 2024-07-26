@@ -1,4 +1,4 @@
-package createclient
+package create_client
 
 import (
 	"github.com/thgbianeck/bnck-ms-wallet/internal/entity"

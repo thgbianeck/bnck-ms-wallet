@@ -1,13 +1,12 @@
-package entity_test
+package entity
 
 import (
 	"github.com/stretchr/testify/assert"
-	"github.com/thgbianeck/bnck-ms-wallet/internal/entity"
 	"testing"
 )
 
 func TestCreateNewClient(t *testing.T) {
-	client, err := entity.NewClient("John Doe", "johndoe@mail.com")
+	client, err := NewClient("John Doe", "johndoe@mail.com")
 	assert.Nil(t, err)
 	assert.NotNil(t, client)
 	assert.Equal(t, "John Doe", client.Name)
@@ -15,13 +14,13 @@ func TestCreateNewClient(t *testing.T) {
 }
 
 func TestCreateNewClientWhenArgsAreInvalid(t *testing.T) {
-	client, err := entity.NewClient("", "")
+	client, err := NewClient("", "")
 	assert.NotNil(t, err)
 	assert.Nil(t, client)
 }
 
 func TestUpdateClient(t *testing.T) {
-	client, _ := entity.NewClient("John Doe", "johndoe@mail.com")
+	client, _ := NewClient("John Doe", "johndoe@mail.com")
 
 	err := client.Update("Jane Doe", "janedoe@mail.com")
 
@@ -33,7 +32,7 @@ func TestUpdateClient(t *testing.T) {
 }
 
 func TestUpdateClientWithInvalidArgs(t *testing.T) {
-	client, _ := entity.NewClient("John Doe", "johndoe@mail.com")
+	client, _ := NewClient("John Doe", "johndoe@mail.com")
 	err := client.Update("", "janedoe@mail.com")
 
 	assert.NotNil(t, err)
@@ -41,8 +40,8 @@ func TestUpdateClientWithInvalidArgs(t *testing.T) {
 }
 
 func TestAddAccountToClient(t *testing.T) {
-	client, _ := entity.NewClient("john doe", "j@j.com")
-	account := entity.NewAccount(client)
+	client, _ := NewClient("john doe", "j@j.com")
+	account := NewAccount(client)
 	err := client.AddAccount(account)
 	assert.Nil(t, err)
 	assert.Equal(t, 1, len(client.Accounts))

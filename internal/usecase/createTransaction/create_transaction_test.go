@@ -1,11 +1,12 @@
-package createtransaction_test
+package create_transaction
 
 import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/thgbianeck/bnck-ms-wallet/internal/entity"
-	createtransaction "github.com/thgbianeck/bnck-ms-wallet/internal/usecase/createTransaction"
+	"github.com/thgbianeck/bnck-ms-wallet/internal/event"
 	"github.com/thgbianeck/bnck-ms-wallet/internal/usecase/mocks"
+	"github.com/thgbianeck/bnck-ms-wallet/pkg/events"
 	"testing"
 )
 
@@ -25,13 +26,16 @@ func TestCreateTransactionUseCase_Execute(t *testing.T) {
 	mockTransaction := &mocks.TransactionGatewayMock{}
 	mockTransaction.On("Create", mock.Anything).Return(nil)
 
-	inputDto := createtransaction.CreateTransactionInputDTO{
+	inputDto := CreateTransactionInputDTO{
 		AccountIDFrom: account1.ID,
 		AccountIDTo:   account2.ID,
 		Amount:        500,
 	}
 
-	uc := createtransaction.NewCreateTransactionUseCase(mockTransaction, mockAccount)
+	dispatcher := events.NewEventDispatcher()
+	event := event.NewTransactionCreated()
+
+	uc := NewCreateTransactionUseCase(mockTransaction, mockAccount, dispatcher, event)
 	output, err := uc.Execute(inputDto)
 	assert.Nil(t, err)
 	assert.NotNil(t, output)
